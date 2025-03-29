@@ -8,6 +8,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from modules.channel_manager import listar_canais, excluir_canal
 from modules.modal_criar_canal import abrir_modal_criar
 from modules.modal_utils import mostrar_modal_sucesso
+from modules.modal_editar_canal import abrir_modal_editar
+
 
 # 🎨 Paleta de Cores
 BG_COLOR = "#1e1e1e"
@@ -96,8 +98,12 @@ def atualizar_lista():
         btn_excluir.pack(side="right", padx=4)
 
         btn_editar = tk.Button(container, text="✏", font=("Segoe UI", 10),
-                               bg=CARD_COLOR, fg=HIGHLIGHT, relief="flat", cursor="hand2")
+                       bg=CARD_COLOR, fg=HIGHLIGHT, relief="flat", cursor="hand2",
+                       command=lambda cid=id_: abrir_modal_editar(
+                           janela, cid, atualizar_lista, mostrar_modal_sucesso))
+
         btn_editar.pack(side="right")
+
 
 # ➕ Botão "Criar Canal"
 frame_botao = tk.Frame(janela, bg=BG_COLOR)
