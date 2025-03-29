@@ -12,3 +12,6 @@ __pycache__/
 
 # Banco local
 *.db
+# Arquivos de banco de dados locais
+db/*.db
+
