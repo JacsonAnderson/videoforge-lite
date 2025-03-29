@@ -9,7 +9,7 @@ from modules.channel_manager import listar_canais, excluir_canal
 from modules.modal_criar_canal import abrir_modal_criar
 from modules.modal_utils import mostrar_modal_sucesso
 from modules.modal_editar_canal import abrir_modal_editar
-
+from modules.modal_criar_video import abrir_modal_criar_video
 
 # 🎨 Paleta de Cores
 BG_COLOR = "#1e1e1e"
@@ -29,9 +29,18 @@ janela.geometry("520x580")
 janela.configure(bg=BG_COLOR)
 janela.resizable(False, False)
 
-# 🔠 Título
-tk.Label(janela, text="Painel de Conteúdo", font=("Segoe UI", 20, "bold"),
-         fg=HIGHLIGHT, bg=BG_COLOR).pack(pady=(25, 5))
+# 🔠 Título + Botão de vídeo
+header_frame = tk.Frame(janela, bg=BG_COLOR)
+header_frame.pack(fill="x", pady=(25, 5), padx=20)
+
+tk.Label(header_frame, text="Painel de Conteúdo", font=("Segoe UI", 20, "bold"),
+         fg=HIGHLIGHT, bg=BG_COLOR).pack(side="left")
+
+btn_novo_video = tk.Button(header_frame, text="➕", font=("Segoe UI", 14),
+                           fg=HIGHLIGHT, bg=BG_COLOR, relief="flat", cursor="hand2",
+                           command=lambda: abrir_modal_criar_video(janela))
+btn_novo_video.pack(side="right")
+
 tk.Label(janela, text="Gerencie seus canais com facilidade", font=("Segoe UI", 11),
          fg=SUBTEXT_COLOR, bg=BG_COLOR).pack()
 
@@ -39,7 +48,7 @@ tk.Label(janela, text="Gerencie seus canais com facilidade", font=("Segoe UI", 1
 frame_lista = tk.Frame(janela, bg=BG_COLOR)
 frame_lista.pack(padx=20, pady=20, fill="both", expand=True)
 
-# 🧨 Modal personalizado de confirmação de exclusão
+# 🧨 Modal de confirmação de exclusão
 def confirmar_exclusao_customizado(parent, canal_id, nome_canal, on_confirm):
     modal = tk.Toplevel(parent)
     modal.title("Confirmar Exclusão")
@@ -49,7 +58,6 @@ def confirmar_exclusao_customizado(parent, canal_id, nome_canal, on_confirm):
 
     tk.Label(modal, text="Digite o nome do canal para confirmar:", font=("Segoe UI", 10),
              fg=TEXT_COLOR, bg=BG_COLOR).pack(pady=(20, 5))
-
     tk.Label(modal, text=f"⚠️ {nome_canal}", fg=DANGER, bg=BG_COLOR,
              font=("Segoe UI", 11, "bold")).pack()
 
@@ -98,12 +106,10 @@ def atualizar_lista():
         btn_excluir.pack(side="right", padx=4)
 
         btn_editar = tk.Button(container, text="✏", font=("Segoe UI", 10),
-                       bg=CARD_COLOR, fg=HIGHLIGHT, relief="flat", cursor="hand2",
-                       command=lambda cid=id_: abrir_modal_editar(
-                           janela, cid, atualizar_lista, mostrar_modal_sucesso))
-
+                               bg=CARD_COLOR, fg=HIGHLIGHT, relief="flat", cursor="hand2",
+                               command=lambda cid=id_: abrir_modal_editar(
+                                   janela, cid, atualizar_lista, mostrar_modal_sucesso))
         btn_editar.pack(side="right")
-
 
 # ➕ Botão "Criar Canal"
 frame_botao = tk.Frame(janela, bg=BG_COLOR)
