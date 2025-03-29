@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS videos (
     channel_name TEXT NOT NULL,                  -- Nome do canal (para evitar JOINs desnecessários)
     video_number INTEGER UNSIGNED NOT NULL,      -- Contador por canal
     reference_link TEXT NOT NULL,                -- Link de referência
-    original_title TEXT NOT NULL,                -- Título original do vídeo
+    original_title TEXT,                         -- Título original do vídeo
     corrected_transcript TEXT,                   -- Transcrição corrigida
     directory_path TEXT NOT NULL,                -- Caminho do diretório onde o vídeo está salvo
     translated_title TEXT,                       -- Título traduzido
