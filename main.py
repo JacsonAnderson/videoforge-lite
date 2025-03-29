@@ -46,7 +46,7 @@ frame.pack(pady=30, padx=20, fill="both", expand=True)
 
 # Botões
 botoes = [
-    ("📂  Painel de Conteúdo", "app_conteudo.py"),
+    ("📂  Painel de Conteúdo", "app_painel_de_canais.py"),
     ("📝  Gerar Roteiro", "app_roteiro.py"),
     ("🎤  Gerar Áudio", "app_audio.py"),
     ("🎞️  Gerar Vídeo", "app_video.py"),
