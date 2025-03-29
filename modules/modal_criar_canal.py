@@ -1,4 +1,5 @@
 import tkinter as tk
+import secrets
 from tkinter import messagebox
 from modules.channel_manager import criar_canal
 from modules.modal_utils import mostrar_modal_sucesso, mostrar_modal_erro
@@ -78,7 +79,7 @@ def abrir_modal_criar(parent, callback_atualizar, callback_sucesso=None):
             mostrar_modal_erro(modal, "O campo 'mínimo de caracteres' precisa ser um número.")
             return
 
-        canal_id = nome.lower().replace(" ", "_")[:16]
+        canal_id = secrets.token_hex(4)
 
         try:
             criar_canal(canal_id, nome, idioma, prompt, min_chars_int, voice, watermark, music)
