@@ -10,6 +10,7 @@ from modules.modal_criar_canal import abrir_modal_criar
 from modules.modal_utils import mostrar_modal_sucesso
 from modules.modal_editar_canal import abrir_modal_editar
 from modules.modal_criar_video import abrir_modal_criar_video
+from modules.modal_listar_videos import abrir_modal_listar_videos
 
 # 🎨 Paleta de Cores
 BG_COLOR = "#1e1e1e"
@@ -96,6 +97,8 @@ def atualizar_lista():
         info = tk.Label(container, text=f"{nome}  •  {idioma}",
                         font=("Segoe UI", 11, "bold"), fg=TEXT_COLOR, bg=CARD_COLOR)
         info.pack(side="left", anchor="w")
+
+        info.bind("<Double-Button-1>", lambda e, cid=id_, nome=nome: abrir_modal_listar_videos(janela, cid, nome))
 
         btn_excluir = tk.Button(container, text="🗑", font=("Segoe UI", 10),
                                 bg=CARD_COLOR, fg=DANGER, relief="flat", cursor="hand2",

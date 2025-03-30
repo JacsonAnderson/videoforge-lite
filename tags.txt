@@ -1,0 +1,47 @@
+Perfeito! A lógica que você está desenhando é exatamente o que uma pipeline de produção eficiente precisa: **controle de fluxo baseado em estados (tags)**. Vamos organizar essas **tags de status** por etapas, de forma clara, objetiva e fácil de implementar no sistema:
+
+---
+
+### 🧩 Etapas e Tags de Status
+
+| Etapa                  | Tag de Status              | Ação realizada                        |
+|------------------------|----------------------------|----------------------------------------|
+| 📥 Inserção de link    | `pendente`                 | Link adicionado, aguardando processamento |
+| 🧠 Gerar roteiro       | `roteiro_pronto`           | Título original salvo, transcrição obtida e roteiro gerado |
+| 🎤 Gerar áudio         | `audio_gerado`             | Áudio gerado a partir do roteiro |
+| 🎞️ Editar vídeo       | `video_editado`            | Edição do vídeo concluída (usando o áudio e elementos visuais) |
+| 🛠️ Gerar legendas     | `acabamentos_prontos`      | Legendas aplicadas e ajustes finais prontos |
+| 🖼️ Gerar thumbnail     | `thumb_gerada`             | Miniatura criada e salva |
+| 🧠 Gerar metadados     | `metadados_gerados`        | Título, descrição e tags gerados |
+| ✅ Publicado           | `postado`                  | Publicado manualmente (via botão ou sistema externo) |
+
+---
+
+### 🧠 Como implementar?
+1. **Cada etapa verifica vídeos apenas com a tag anterior.**
+   - Exemplo: `gerar_audio.py` só busca onde `status_tags = 'roteiro_pronto'`.
+
+2. **Ao concluir, atualiza a `status_tags` no banco.**
+   - Exemplo: após gerar o áudio → `status_tags = 'audio_gerado'`.
+
+3. **Evita retrabalho, acelera debug e mantém controle visual.**
+
+---
+
+### 💡 Dica Extra: histórico de status
+Se quiser no futuro, pode criar uma tabela de log para guardar:
+- `video_id`
+- `etapa`
+- `data_hora`
+- `mensagem`
+
+Assim você tem um log completo de tudo que aconteceu com aquele vídeo.
+
+---
+
+Se quiser, posso:
+- Criar as funções para atualizar e buscar vídeos por `status_tags`
+- Criar um sistema de log simples no banco
+- Montar um fluxo visual da pipeline
+
+Só dizer como você quer continuar 👨‍💻🔥
